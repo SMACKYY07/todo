@@ -5,6 +5,7 @@ export default function App() {
     const stored = localStorage.getItem("todos");
     return stored ? JSON.parse(stored) : [];
   });
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos])
@@ -18,18 +19,29 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    const trimmedText = text.trim();
+    if (!trimmedText) return;
+
+    // Prevent duplicate todos
+    const alreadyExists = todos.some(
+      (t) => t.text.toLowerCase() === trimmedText.toLowerCase()
+    );
+    if (alreadyExists && !editing) {
+      alert("Task already exists!");
+      return;
+    }
+
     if (editing) {
       setTodos(
         todos.map((t) =>
-          t.id === editing.id ? { ...t, text } : t
+          t.id === editing.id ? { ...t, text: trimmedText } : t
         )
       );
       setEditing(null);
     } else {
       setTodos([
         ...todos,
-        { id: generateId(), text, completed: false },
+        { id: generateId(), text: trimmedText, completed: false },
       ]);
     }
     setText("")
@@ -53,7 +65,7 @@ export default function App() {
   }
 
   let filtered = todos
-  if (filter === "active") // Fixed the logic bug from your original code here too (filtered -> filter)
+  if (filter === "active")
     filtered = filtered.filter((t) => !t.completed);
   if (filter === "completed")
     filtered = filtered.filter((t) => t.completed);
