@@ -145,7 +145,7 @@ export default function App() {
         </div>
 
         {/* Todo List */}
-        <div className="p-2 min-h-[320px] max-h-[60vh] overflow-y-auto">
+        <div className="p-2 min-h-320px max-h-[60vh] overflow-y-auto">
           {filtered.length === 0 ? (
             <div className="h-full flex items-center justify-center pt-20 text-sm text-zinc-600">
               No tasks found.
@@ -160,13 +160,13 @@ export default function App() {
                   <div className="flex items-center gap-3 overflow-hidden">
                     <button 
                       onClick={() => toggleTodo(todo.id)}
-                      className={`flex-shrink-0 w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
+                      className={`flex-shrink- 0 w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${
                         todo.completed 
                           ? "bg-zinc-100 border-zinc-100 text-zinc-900" 
                           : "border-zinc-700 hover:border-zinc-500 text-transparent"
                       }`}
                     >
-                      <svg viewBox="0 0 14 14" fill="none" className="w-3 h-3 stroke-current stroke-[2] stroke-linecap-round stroke-linejoin-round">
+                      <svg viewBox="0 0 14 14" fill="none" className="w-3 h-3 stroke-current stroke-2 stroke-linecap-round stroke-linejoin-round">
                         <path d="M3 7.5L4.5 9L10.5 3" />
                       </svg>
                     </button>
